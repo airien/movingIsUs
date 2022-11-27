@@ -72,6 +72,15 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy("AllCors", builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    });
+});
 
 builder.Services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
 builder.Services.AddAuthorization();
@@ -84,6 +93,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.UseCors("AllCors");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

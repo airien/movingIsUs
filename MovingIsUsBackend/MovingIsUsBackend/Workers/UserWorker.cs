@@ -1,9 +1,6 @@
 ﻿using Database;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using NuGet.Common;
-using OpenIddict.Abstractions;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace MovingIsUsBackend.Workers
 {
