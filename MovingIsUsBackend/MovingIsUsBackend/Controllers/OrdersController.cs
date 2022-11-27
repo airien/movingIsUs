@@ -4,11 +4,13 @@ using Features.GetOrder;
 using Features.GetOrders;
 using Features.UpdateOrder;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace MovingIsUsBackend.Controllers
 {
+    [Authorize(Roles = "Writer")]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase

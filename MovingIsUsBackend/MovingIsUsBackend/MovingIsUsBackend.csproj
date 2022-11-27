@@ -26,6 +26,9 @@
     <PackageReference Include="Microsoft.Identity.Web" Version="1.25.8" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.Server.AspNetCore" Version="3.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -34,6 +37,7 @@
     <ProjectReference Include="..\Features\Features.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
+    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>
