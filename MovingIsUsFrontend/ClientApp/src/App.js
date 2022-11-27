@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import { createHashHistory } from "history"
 import { Layout } from './components/Layout';
 import { AuthProvider } from './context/auth.context';
-import { ProtectedRoute } from "./ProtectedRoute";
 import './custom.css';
 import { theme } from './theme'
 import { ThemeProvider } from '@mui/material/styles';
