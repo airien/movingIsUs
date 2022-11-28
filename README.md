@@ -62,9 +62,13 @@ Edit an order that I’ve previously placed for acustomer.
 <img src="images/EditOrder.png" height="400"> 
 
 ## The Process
+### Initial stage
 I started by reading the requirements, writing them down in my understanding and thinking how to approach it.
 Next step was to draw some basic sketches on paper and go over some ideas for how it could look.
+<br/>
 <img src="images/20221128_030247.jpg" height="400"> 
+<br/>
+### Technology
 Next was to think about how to approach it technically and what I wanted to do with architecture.
 I am most familiar with .NET, although it has been a year an a half since I did anything with it. Therefore I went for a .NET backend. 
 My next thought was that it should be flexible and possible to extend at some point, so I went for a CQRS approach with MediatR.
@@ -72,8 +76,11 @@ For the database I chose SQL server, with EF Core and Code first.
 For authentication I chose OpenIddict, mostly because it was quick and easy to drop in.
 For front end I chose React, mostly because of my experience with it before.
 So, when technology was selected, I made a simple sketch of how it could look. Even if I went with CQRS setup of the handling of the requests, I still went for a repository approach to getting data. This way, I reduce the amount of copied code in the commands and queris. I don't like repeating myself too much.
+<br/>
 <img src="images/20221128_030406.jpg" height="400"> 
+<br/>
 
+### Planning
 The next step was to make some tasks for the work to structure it:
 Task 1 -> Set up general architecture on backend
 Task 2 -> Add authentication and authorization
@@ -85,8 +92,8 @@ Task 7 -> Add operation for deleting orders
 Task 8 -> Add search to order list
 Task 9 -> Documentation
 
-After that it was just work, and here we are. 
-
-Things I wish I had time for:
+###Things I wish I had time for:
 - Input validation
 - DevOps and build
+- Even more structuring of the frontend
+
