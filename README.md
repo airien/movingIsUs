@@ -102,4 +102,5 @@ Task 9 -> Documentation
 - Input validation
 - DevOps and build
 - Even more structuring of the frontend
+- Testing
 
