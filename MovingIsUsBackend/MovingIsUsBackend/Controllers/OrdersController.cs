@@ -52,7 +52,7 @@ namespace MovingIsUsBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(string id, Order order)
         {
-            if (order == null || id != order.Id)
+            if (order == null || id != order.OrderId)
             {
                 return BadRequest();
             }
@@ -72,7 +72,7 @@ namespace MovingIsUsBackend.Controllers
                 return Problem("Entity set 'OrderContext.Order'  is null or Order aldready exists");
             }
 
-            return CreatedAtAction("GetOrder", new { id = newOrder.Id }, newOrder);
+            return CreatedAtAction("GetOrder", new { id = newOrder.OrderId }, newOrder);
         }
 
         // DELETE: api/Orders/5

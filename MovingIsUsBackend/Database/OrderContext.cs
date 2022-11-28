@@ -13,7 +13,14 @@ namespace MovingIsUsBackend.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Services)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+        }
 
-        public DbSet<Models.Order> Order { get; set; } = default!;
+        public DbSet<Order> Order { get; set; } = default!;
     }
 }

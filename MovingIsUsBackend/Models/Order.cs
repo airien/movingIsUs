@@ -3,10 +3,10 @@
     public class Order
     {
         public Order() {
-            Id = Guid.NewGuid().ToString();
+            OrderId = Guid.NewGuid().ToString();
         }
 
-        public string Id { get; set; }
+        public string OrderId { get; set; }
         public string? Name { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }

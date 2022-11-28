@@ -6,6 +6,7 @@ function getUserToken() {
     user = JSON.parse(user);
     console.log("found user", user)
 
+    if (user === null) return ""
     return user.token
 }
 
@@ -13,20 +14,28 @@ const axios = Axios.create({
   baseURL: `${API_SERVER}`,
   headers: {
        "Content-Type": "application/json",
-       "Authorization": "Bearer " + getUserToken()
      },
 });
 
 axios.interceptors.request.use(
   (config) => {
+    let token =  getUserToken()
+    if (token) {
+        config.headers['Authorization'] = 'Bearer ' + token;
+    }
     return Promise.resolve(config);
   },
   (error) => Promise.reject(error)
 );
 
 axios.interceptors.response.use(
-  (response) => Promise.resolve(response),
-  (error) => {
+    (response) => Promise.resolve(response),
+    (error) => {
+    if(error.response.status === 401) {
+        // auto log out
+        localStorage.clear();
+        window.location.href = '/';
+    }
     return Promise.reject(error);
   }
 );

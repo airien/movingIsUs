@@ -16,4 +16,4 @@ root.render(
   </BrowserRouter>);
 
 serviceWorkerRegistration.unregister();
-reportWebVitals(console.log);
+reportWebVitals();

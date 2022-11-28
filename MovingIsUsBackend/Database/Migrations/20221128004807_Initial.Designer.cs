@@ -12,7 +12,7 @@ using MovingIsUsBackend.Data;
 namespace Database.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20221127081625_Initial")]
+    [Migration("20221128004807_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,7 +27,7 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Models.Order", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressFrom")
@@ -51,14 +51,14 @@ namespace Database.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Models.Service", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("ServiceId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -70,7 +70,7 @@ namespace Database.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("ServiceId");
 
                     b.HasIndex("OrderId");
 
@@ -81,7 +81,8 @@ namespace Database.Migrations
                 {
                     b.HasOne("Models.Order", null)
                         .WithMany("Services")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Models.Order", b =>

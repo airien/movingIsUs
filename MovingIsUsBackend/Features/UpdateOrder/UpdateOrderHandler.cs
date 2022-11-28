@@ -13,7 +13,7 @@ namespace Features.UpdateOrder
         }
         public Task<Order?> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            return _repository.UpdateOrderAsync(request.Order.Id, request.Order);
+            return _repository.UpdateOrderAsync(request.Order.OrderId, request.Order);
         }
     }
 }

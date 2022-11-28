@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from "react-router-dom"
 import AuthApi from '../api/auth';
 import Paper from '@mui/material/Paper';
@@ -10,7 +10,6 @@ import Key from '@mui/icons-material/Key';
 import { useAuth } from "../context/auth.context";
 
 export function Login() {
-    const displayName = Login.name;
     const navigate = useNavigate()
     
     const { state } = useLocation();
@@ -98,6 +97,7 @@ export function Login() {
                         </InputAdornment>
                     ),
                     }}
+                    type="password"
                     variant="standard"
                     onChange={handleChange}
                 />

@@ -39,7 +39,7 @@ namespace Repository
             {
                 return false;
             }
-            var order = dbContext.Order.Find(id);
+            var order = dbContext.Order.Include(e => e.Services).FirstOrDefault(i => i.OrderId == id);
             if (order == null)
             {
                 return false;
@@ -55,7 +55,7 @@ namespace Repository
             {
                 return false;
             }
-            var order = await dbContext.Order.FindAsync(id);
+            var order = await dbContext.Order.Include(e => e.Services).FirstOrDefaultAsync(i => i.OrderId == id);
             if (order == null)
             {
                 return false;
@@ -68,7 +68,7 @@ namespace Repository
 
         public Order? GetOrderById(string id)
         {
-            return dbContext.Order.Where(o => o.Id == id).FirstOrDefault();
+            return dbContext.Order.Include(e => e.Services).Where(o => o.OrderId == id).FirstOrDefault();
         }
 
         public async Task<Order?> GetOrderByIdAsync(string id)
@@ -77,7 +77,7 @@ namespace Repository
             {
                 return null;
             }
-            var order = await dbContext.Order.FindAsync(id);
+            var order = await dbContext.Order.Include(e => e.Services).FirstOrDefaultAsync(i => i.OrderId == id);
 
             if (order == null)
             {
@@ -94,7 +94,7 @@ namespace Repository
             {
                 return null;
             }
-            return dbContext.Order.Where(o => o.Name == name).FirstOrDefault();
+            return dbContext.Order.Include(e => e.Services).Where(o => o.Name == name).FirstOrDefault();
         }
 
         public async Task<Order?> GetOrderByNameAsync(string name)
@@ -103,7 +103,7 @@ namespace Repository
             {
                 return null;
             }
-            var order = await dbContext.Order.Where(o => o.Name == name).FirstOrDefaultAsync();
+            var order = await dbContext.Order.Include(e => e.Services).Where(o => o.Name == name).FirstOrDefaultAsync();
 
             if (order == null)
             {
@@ -115,7 +115,7 @@ namespace Repository
 
         public List<Order> GetOrders()
         {
-            return dbContext.Order.ToList();
+            return dbContext.Order.Include(e => e.Services).ToList();
         }
 
         public async Task<List<Order>?> GetOrdersAsync()
@@ -124,7 +124,7 @@ namespace Repository
             {
                 return null;
             }
-            return await dbContext.Order.ToListAsync();
+            return await dbContext.Order.Include(e => e.Services).ToListAsync();
         }
 
         public Order? SaveOrder(Order order)
@@ -152,7 +152,7 @@ namespace Repository
             }
             catch (DbUpdateException)
             {
-                if (OrderExists(order.Id))
+                if (OrderExists(order.OrderId))
                 {
                     return null;
                 }
@@ -165,17 +165,37 @@ namespace Repository
 
         public Order UpdateOrder(string id, Order order)
         {
-            dbContext.Order.Update(order);
+            Order? existing = dbContext.Order.Include(e => e.Services).FirstOrDefault(i => i.OrderId == id);
+            if (existing == null)
+            {
+                dbContext.Order.Add(order);
+            }
+            else
+            {
+                dbContext.Order.Remove(existing);
+                dbContext.SaveChanges();
+                dbContext.Order.Add(order);
+
+            }
             dbContext.SaveChanges();
             return order;
         }
 
         public async Task<Order?> UpdateOrderAsync(string id, Order order)
         {
-            dbContext.Entry(order).State = EntityState.Modified;
-
+            Order? existing = await dbContext.Order.Include(e => e.Services).FirstOrDefaultAsync(i => i.OrderId == id);
             try
             {
+                if (existing == null)
+                {
+                    dbContext.Order.Add(order);
+                }
+                else
+                {
+                    dbContext.Order.Remove(existing);
+                    await dbContext.SaveChangesAsync();
+                    dbContext.Order.Add(order);
+                }
                 await dbContext.SaveChangesAsync();
                 return order;
             }
@@ -193,7 +213,7 @@ namespace Repository
         }
         private bool OrderExists(string id)
         {
-            return (dbContext.Order?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (dbContext.Order?.Any(e => e.OrderId == id)).GetValueOrDefault();
         }
     }
 }
