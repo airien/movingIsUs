@@ -52,14 +52,20 @@ It’s also ok to use any other provider and cloud platform if that is your pref
 ##The Result
 End result works. You can do all the things you want:
 Place an order for a customer
+<br/>
 <img src="images/AddOrder.png" height="400"> 
+<br/>
 Find an order that is previously placed for a customer.
 (Search)
 Delete an order that I’ve previously placed for a
 customer.
-<img src="images/Orders.pnd" height="400">
+<br/>
+<img src="images/Orders.png" height="400">
+<br/>
 Edit an order that I’ve previously placed for acustomer.
+<br/>
 <img src="images/EditOrder.png" height="400"> 
+<br/>
 
 ## The Process
 ### Initial stage
@@ -92,7 +98,7 @@ Task 7 -> Add operation for deleting orders
 Task 8 -> Add search to order list
 Task 9 -> Documentation
 
-###Things I wish I had time for:
+### Things I wish I had time for:
 - Input validation
 - DevOps and build
 - Even more structuring of the frontend
