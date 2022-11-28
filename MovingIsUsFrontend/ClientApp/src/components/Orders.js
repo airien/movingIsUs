@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
 import OrderApi from '../api/order';
 import Moment from 'moment';
+import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
@@ -10,6 +11,8 @@ export function Orders() {
   const navigate = useNavigate()
   const [loading, setLoading] = React.useState(true);
   const [orders, setOrders] = React.useState([]);
+  const [isSearch, setIsSearch] = React.useState(false);
+  const [searchedOrders, setSearchedOrders] = React.useState([]);
   const [error, setError] = React.useState('');
     
   useEffect(() => {
@@ -25,6 +28,19 @@ export function Orders() {
     setOrders(response.data);
     setLoading(false);
   }
+  const updateSearch = (event) => {
+    let term = event.target.value
+    if (term && term.length > 0) {
+      console.log("orders", orders);
+      let searched = orders.filter(order => (order.name && order.name.startsWith(term))|| (order.email && order.email.startsWith(term)));
+      setSearchedOrders(searched);
+      setIsSearch(true);
+    } else {
+      setIsSearch(false);
+      setSearchedOrders([]);
+    }
+    console.log("searchedOrders", searchedOrders);
+  } 
   const deleteOrder = async (id) => {
     setLoading(true)
     try {
@@ -48,6 +64,17 @@ export function Orders() {
 
   function renderOrderTable(orders) {
     return (
+      <div>
+ <TextField
+        style={{width:"100%"}}
+        id="input-with-icon-textfield"
+        name="search"
+        label="Search"
+        size="small"
+        margin="normal"
+        variant="standard"
+        onChange={updateSearch}
+    />
       <table className="table table-striped" aria-labelledby="tableLabel">
         <thead>
           <tr>
@@ -61,7 +88,7 @@ export function Orders() {
           </tr>
         </thead>
         <tbody>
-          {orders.map(order =>
+          {(isSearch?searchedOrders:orders).map(order =>
             <tr key={order.orderDate}>
               <td>{Moment(order.orderDate).format('DD.MM.YYYY hh:mm')}</td>
               <td>{order.name}</td>
@@ -82,6 +109,8 @@ export function Orders() {
           )}
         </tbody>
       </table>
+      </div>
+     
     );
   }
 
